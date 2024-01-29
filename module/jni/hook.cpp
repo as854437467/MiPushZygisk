@@ -4,9 +4,9 @@
 
 using namespace std;
 
-jstring (*orig_native_get)(JNIEnv *env, jclass clazz, jstring keyJ, jstring defJ);
+static jstring (*orig_native_get)(JNIEnv *env, jclass clazz, jstring keyJ, jstring defJ);
 
-jstring my_native_get(JNIEnv *env, jclass clazz, jstring keyJ, jstring defJ) {
+static jstring my_native_get(JNIEnv *env, jclass clazz, jstring keyJ, jstring defJ) {
     const char *key = env->GetStringUTFChars(keyJ, nullptr);
     const char *def = env->GetStringUTFChars(defJ, nullptr);
 
