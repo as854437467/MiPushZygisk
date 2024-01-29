@@ -48,8 +48,8 @@ jstring my_native_get(JNIEnv *env, jclass clazz, jstring keyJ, jstring defJ) {
 
     if (hooked_result != nullptr) {
 #ifdef DEBUG
-        string result = jstringToStdString(env, hooked_result.c_str());
-        LOGD("my_native_get: %s\n", result);
+        string result = jstringToStdString(env, hooked_result);
+        LOGD("my_native_get: %s\n", result.c_str());
 #endif
         return hooked_result;
     } else {
