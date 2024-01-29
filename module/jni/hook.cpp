@@ -2,6 +2,10 @@
 #include "logging.h"
 #include <string>
 
+#ifdef DEBUG
+#include "util.h"
+#endif
+
 using namespace std;
 
 jstring (*orig_native_get)(JNIEnv *env, jclass clazz, jstring keyJ, jstring defJ);
@@ -14,6 +18,7 @@ jstring my_native_get(JNIEnv *env, jclass clazz, jstring keyJ, jstring defJ) {
         string def = jstringToStdString(env, defJ);
         LOGD("my_native_get(*env, %s, %s, %s)\n", c.c_str(), key.c_str(), def.c_str());
     }
+#endif
     const char *key = env->GetStringUTFChars(keyJ, nullptr);
     const char *def = env->GetStringUTFChars(defJ, nullptr);
 
