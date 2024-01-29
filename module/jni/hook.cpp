@@ -13,10 +13,10 @@ jstring (*orig_native_get)(JNIEnv *env, jclass clazz, jstring keyJ, jstring defJ
 jstring my_native_get(JNIEnv *env, jclass clazz, jstring keyJ, jstring defJ) {
 #ifdef DEBUG
     {
-        string c = jstringToStdString(env, clazz);
+        // string c = jstringToStdString(env, clazz);
         string key = jstringToStdString(env, keyJ);
         string def = jstringToStdString(env, defJ);
-        LOGD("my_native_get(*env, %s, %s, %s)\n", c.c_str(), key.c_str(), def.c_str());
+        LOGD("my_native_get(*env, clazz, %s, %s)\n", key.c_str(), def.c_str());
     }
 #endif
     const char *key = env->GetStringUTFChars(keyJ, nullptr);
