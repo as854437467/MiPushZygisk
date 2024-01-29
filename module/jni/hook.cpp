@@ -7,7 +7,13 @@ using namespace std;
 jstring (*orig_native_get)(JNIEnv *env, jclass clazz, jstring keyJ, jstring defJ);
 
 jstring my_native_get(JNIEnv *env, jclass clazz, jstring keyJ, jstring defJ) {
-    LOGD("my_native_get\n");
+#ifdef DEBUG
+    {
+        string c = jstringToStdString(evn, clazz);
+        string key = jstringToStdString(env, keyJ);
+        string def = jstringToStdString(env, defJ);
+        LOGD("my_native_get(*env, %s, %s, %s)\n", c.c_str(), key.c_str(), def.c_str());
+    }
     const char *key = env->GetStringUTFChars(keyJ, nullptr);
     const char *def = env->GetStringUTFChars(defJ, nullptr);
 
@@ -37,9 +43,8 @@ jstring my_native_get(JNIEnv *env, jclass clazz, jstring keyJ, jstring defJ) {
 
     if (hooked_result != nullptr) {
 #ifdef DEBUG
-        const char *result = env->GetStringUTFChars(hooked_result, nullptr);
+        string result = jstringToStdString(env, hooked_result);
         LOGD("my_native_get: %s\n", result);
-        env->ReleaseStringUTFChars(hooked_result, result);
 #endif
         return hooked_result;
     } else {
