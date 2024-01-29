@@ -7,6 +7,7 @@ using namespace std;
 jstring (*orig_native_get)(JNIEnv *env, jclass clazz, jstring keyJ, jstring defJ);
 
 jstring my_native_get(JNIEnv *env, jclass clazz, jstring keyJ, jstring defJ) {
+    LOGD("my_native_get\n");
     const char *key = env->GetStringUTFChars(keyJ, nullptr);
     const char *def = env->GetStringUTFChars(defJ, nullptr);
 
@@ -35,8 +36,14 @@ jstring my_native_get(JNIEnv *env, jclass clazz, jstring keyJ, jstring defJ) {
     env->ReleaseStringUTFChars(defJ, def);
 
     if (hooked_result != nullptr) {
+#ifdef DEBUG
+        const char *result = env->GetStringUTFChars(hooked_result, nullptr);
+        LOGD("my_native_get: %s\n", result);
+        env->ReleaseStringUTFChars(hooked_result, result);
+#endif
         return hooked_result;
     } else {
+        LOGD("orig_native_get: %s\n", hooked_result);
         return orig_native_get(env, clazz, keyJ, defJ);
     }
 }
