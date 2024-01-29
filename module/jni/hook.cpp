@@ -41,21 +41,22 @@ jstring my_native_get(JNIEnv *env, jclass clazz, jstring keyJ, jstring defJ) {
         hooked_result = env->NewStringUTF("CN");
     } else if (strcmp(key, "ro.miui.cust_variant") == 0) { // ro.miui.cust_variant=cn
         hooked_result = env->NewStringUTF("cn");
+    } else {
+        env->ReleaseStringUTFChars(keyJ, key);
+        env->ReleaseStringUTFChars(defJ, def);
+
+        LOGD("orig_native_get()\n");
+        return orig_native_get(env, clazz, keyJ, defJ);
     }
 
     env->ReleaseStringUTFChars(keyJ, key);
     env->ReleaseStringUTFChars(defJ, def);
 
-    if (hooked_result != nullptr) {
 #ifdef DEBUG
-        string result = jstringToStdString(env, hooked_result);
-        LOGD("my_native_get: %s\n", result.c_str());
+    string result = jstringToStdString(env, hooked_result);
+    LOGD("my_native_get(): %s\n", result.c_str());
 #endif
-        return hooked_result;
-    } else {
-        LOGD("orig_native_get\n");
-        return orig_native_get(env, clazz, keyJ, defJ);
-    }
+    return hooked_result;
 }
 
 void hookBuild(JNIEnv *env) {
