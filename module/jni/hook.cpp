@@ -2,25 +2,15 @@
 #include "logging.h"
 #include <string>
 
-#ifdef DEBUG
-#include "util.h"
-#endif
-
 using namespace std;
 
 jstring (*orig_native_get)(JNIEnv *env, jclass clazz, jstring keyJ, jstring defJ);
 
 jstring my_native_get(JNIEnv *env, jclass clazz, jstring keyJ, jstring defJ) {
-#ifdef DEBUG
-    {
-        // string c = jstringToStdString(env, clazz);
-        string key = jstringToStdString(env, keyJ);
-        string def = jstringToStdString(env, defJ);
-        LOGD("my_native_get(*env, clazz, %s, %s)\n", key.c_str(), def.c_str());
-    }
-#endif
     const char *key = env->GetStringUTFChars(keyJ, nullptr);
     const char *def = env->GetStringUTFChars(defJ, nullptr);
+
+    LOGD("my_native_get(*env, clazz, %s, %s)\n", key, def);
 
     jstring hooked_result = nullptr;
 
@@ -53,8 +43,9 @@ jstring my_native_get(JNIEnv *env, jclass clazz, jstring keyJ, jstring defJ) {
     env->ReleaseStringUTFChars(defJ, def);
 
 #ifdef DEBUG
-    string result = jstringToStdString(env, hooked_result);
-    LOGD("my_native_get(): %s\n", result.c_str());
+    const char* result = env->GetStringUTFChars(hooked_result, nullptr);
+    LOGD("my_native_get(): %s\n", result);
+    env->ReleaseStringUTFChars(hooked_result, result);
 #endif
     return hooked_result;
 }
