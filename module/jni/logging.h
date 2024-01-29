@@ -8,6 +8,8 @@
 #define LOG_TAG    "HmsPushZygisk"
 #endif
 
+#define DEBUG
+
 #ifdef DEBUG
 #define LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
 #else
