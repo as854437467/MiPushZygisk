@@ -32,18 +32,16 @@ static jstring my_native_get(JNIEnv *env, jclass clazz, jstring keyJ, jstring de
     } else if (strcmp(key, "ro.miui.cust_variant") == 0) { // ro.miui.cust_variant=cn
         hooked_result = env->NewStringUTF("cn");
     } else {
-        env->ReleaseStringUTFChars(keyJ, key);
-        env->ReleaseStringUTFChars(defJ, def);
-
         LOGD("orig_native_get()\n");
-        return orig_native_get(env, clazz, keyJ, defJ);
+        hooked_result = orig_native_get(env, clazz, keyJ, defJ);
+        LOGD("orig_native_got()\n");
     }
 
     env->ReleaseStringUTFChars(keyJ, key);
     env->ReleaseStringUTFChars(defJ, def);
 
 #ifdef DEBUG
-    const char* result = env->GetStringUTFChars(hooked_result, nullptr);
+    const char *result = env->GetStringUTFChars(hooked_result, nullptr);
     LOGD("my_native_get(): %s\n", result);
     env->ReleaseStringUTFChars(hooked_result, result);
 #endif
