@@ -43,7 +43,7 @@ jstring my_native_get(JNIEnv *env, jclass clazz, jstring keyJ, jstring defJ) {
 #endif
         return hooked_result;
     } else {
-        LOGD("orig_native_get: %s\n", hooked_result);
+        LOGD("orig_native_get\n");
         return orig_native_get(env, clazz, keyJ, defJ);
     }
 }
