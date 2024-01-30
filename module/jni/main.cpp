@@ -84,17 +84,18 @@ private:
     }
 
     void preSpecialize(const string &packageName, const string &process) {
-        vector<string> processList = requestRemoteConfig(packageName);
-        if (!processList.empty()) {
-            bool shouldHook = false;
-            for (const auto &item: processList) {
-                if (item.empty() || item == process) {
-                    shouldHook = true;
-                    break;
-                }
-            }
+        // vector<string> processList = requestRemoteConfig(packageName);
+        // if (!processList.empty()) {
+        //     bool shouldHook = false;
+        //     for (const auto &item: processList) {
+        //         if (item.empty() || item == process) {
+        //             shouldHook = true;
+        //             break;
+        //         }
+        //     }
 
-            if (shouldHook) {
+        //     if (shouldHook) {
+            if (strcmp(packageName, "com.example.myapplication") == 0)
                 // Force DenyList unmounting for all hooked processes
                 api->setOption(zygisk::FORCE_DENYLIST_UNMOUNT);
 
@@ -103,11 +104,11 @@ private:
                 return;
             } else {
                 LOGD("hook- package = [%s], process = [%s]\n", packageName.c_str(), process.c_str());
-            }
-        }
 
-        // Since we do not hook any functions, we should let Zygisk dlclose ourselves
-        api->setOption(zygisk::Option::DLCLOSE_MODULE_LIBRARY);
+                // Since we do not hook any functions, we should let Zygisk dlclose ourselves
+                api->setOption(zygisk::Option::DLCLOSE_MODULE_LIBRARY);
+            }
+        // }
     }
 
     /**
