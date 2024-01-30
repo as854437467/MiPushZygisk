@@ -13,6 +13,8 @@ static jstring my_native_get(JNIEnv *env, jclass clazz, jstring keyJ, jstring de
     LOGD("my_native_get(*env, clazz, %s, %s)\n", key, def);
 
     jstring hooked_result = nullptr;
+    hooked_result = orig_native_get(env, clazz, keyJ, defJ);
+    LOGD("orig_native_got() %p\n", hooked_result);
 
     // MIUI
     if (strcmp(key, "ro.product.brand") == 0) { // ro.product.brand=Xiaomi
@@ -35,18 +37,14 @@ static jstring my_native_get(JNIEnv *env, jclass clazz, jstring keyJ, jstring de
         // LOGD("orig_native_get()\n");
         // hooked_result = orig_native_get(env, clazz, keyJ, defJ);
         // LOGD("orig_native_got()\n");
-        hooked_result = env->NewStringUTF("?");
-        LOGD("orig_native_forged()\n");
+        // hooked_result = env->NewStringUTF("?");
+        // LOGD("orig_native_forged()\n");
     }
 
     env->ReleaseStringUTFChars(keyJ, key);
     env->ReleaseStringUTFChars(defJ, def);
 
-#ifdef DEBUG
-    const char *result = env->GetStringUTFChars(hooked_result, nullptr);
-    LOGD("my_native_get(): %s\n", result);
-    env->ReleaseStringUTFChars(hooked_result, result);
-#endif
+    LOGD("my_native_get(): %p\n", hooked_result);
     return hooked_result;
 }
 
