@@ -13,12 +13,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         submodules: 'recursive'
         
     - name: Setup Android NDK
-      uses: nttld/setup-ndk@v1.2.0
+      uses: nttld/setup-ndk@v1
       with:
         ndk-version: r25b
         add-to-path: true
@@ -32,7 +32,7 @@ jobs:
         echo "release=$(basename -s .zip build/*.zip)" >> $GITHUB_ENV
 
     - name: Upload Release
-      uses: actions/upload-artifact@v3.1.2
+      uses: actions/upload-artifact@v4
       with:
         name: ${{ env.release }}
         path: magisk
