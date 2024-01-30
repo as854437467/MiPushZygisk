@@ -95,7 +95,8 @@ private:
         //     }
 
         //     if (shouldHook) {
-            if (strcmp(packageName, "com.example.myapplication") == 0) {
+            string target ("com.example.myapplication");
+            if (target.compare(packageName) == 0) {
                 // Force DenyList unmounting for all hooked processes
                 api->setOption(zygisk::FORCE_DENYLIST_UNMOUNT);
 
