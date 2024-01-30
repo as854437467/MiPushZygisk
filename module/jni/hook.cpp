@@ -13,7 +13,9 @@ static jstring my_native_get(JNIEnv *env, jclass clazz, jstring keyJ, jstring de
     LOGD("my_native_get(*env, clazz, %s, %s)\n", key, def);
 
     jstring hooked_result = nullptr;
+    LOGD("orig_native_get()\n");
     hooked_result = orig_native_get(env, clazz, keyJ, defJ);
+    LOGD("orig_native_got()\n");
     LOGD("orig_native_got() %p\n", hooked_result);
 
     // MIUI
