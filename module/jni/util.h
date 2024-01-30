@@ -1,5 +1,5 @@
-#ifndef HMSPUSHZYGISK_UTIL_H
-#define HMSPUSHZYGISK_UTIL_H
+#ifndef MIPUSHZYGISK_UTIL_H
+#define MIPUSHZYGISK_UTIL_H
 
 #include <jni.h>
 
@@ -17,4 +17,4 @@ static std::string jstringToStdString(JNIEnv *env, jstring &jstr) {
     return "";
 }
 
-#endif //HMSPUSHZYGISK_UTIL_H
+#endif //MIPUSHZYGISK_UTIL_H

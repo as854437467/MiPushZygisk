@@ -5,7 +5,7 @@
 #include <android/log.h>
 
 #ifndef LOG_TAG
-#define LOG_TAG    "HmsPushZygisk"
+#define LOG_TAG    "MiPushZygisk"
 #endif
 
 #ifdef DEBUG

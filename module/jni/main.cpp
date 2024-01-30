@@ -29,7 +29,7 @@ using zygisk::ServerSpecializeArgs;
 
 using namespace std;
 
-class HmsPushZygisk : public zygisk::ModuleBase {
+class MiPushZygisk : public zygisk::ModuleBase {
 public:
     void onLoad(Api *api, JNIEnv *env) override {
         this->api = api;
@@ -193,6 +193,6 @@ private:
 };
 
 // Register our module class and the companion handler function
-REGISTER_ZYGISK_MODULE(HmsPushZygisk)
+REGISTER_ZYGISK_MODULE(MiPushZygisk)
 
 REGISTER_ZYGISK_COMPANION(Server::companion_handler)

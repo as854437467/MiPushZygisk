@@ -1,5 +1,5 @@
-#ifndef HMSPUSHZYGISK_HOOK_H
-#define HMSPUSHZYGISK_HOOK_H
+#ifndef MIPUSHZYGISK_HOOK_H
+#define MIPUSHZYGISK_HOOK_H
 
 
 #include <jni.h>
@@ -22,4 +22,4 @@ private:
     JNIEnv *env;
 };
 
-#endif //HMSPUSHZYGISK_HOOK_H
+#endif //MIPUSHZYGISK_HOOK_H
